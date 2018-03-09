@@ -1,0 +1,17 @@
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\GeneratorTest.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\GeneratorTest.pdb
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\DataGenerator.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\FunctionsGenerator.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\DataGenerator.pdb
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\FunctionsGenerator.pdb
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\obj\Release\GeneratorTest.csprojResolveAssemblyReference.cache
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\obj\Release\GeneratorTest.csproj.CoreCompileInputs.cache
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\obj\Release\GeneratorTest.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\GeneratorTest\obj\Release\GeneratorTest.pdb

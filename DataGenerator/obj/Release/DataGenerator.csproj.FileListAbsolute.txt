@@ -1,0 +1,7 @@
+C:\Users\xin.he\source\repos\FunctionsGenerator\DataGenerator\bin\Release\DataGenerator.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\DataGenerator\bin\Release\DataGenerator.pdb
+C:\Users\xin.he\source\repos\FunctionsGenerator\DataGenerator\obj\Release\DataGenerator.csproj.CoreCompileInputs.cache
+C:\Users\xin.he\source\repos\FunctionsGenerator\DataGenerator\obj\Release\DataGenerator.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\DataGenerator\obj\Release\DataGenerator.pdb
+C:\Users\xin.he\source\repos\FunctionsGenerator\Output\DataGenerator.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\Output\DataGenerator.pdb

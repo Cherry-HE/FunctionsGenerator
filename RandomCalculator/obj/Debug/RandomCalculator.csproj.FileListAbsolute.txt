@@ -1,0 +1,10 @@
+C:\Users\xin.he\source\repos\FunctionsGenerator\RandomCalculator\bin\Debug\RandomCalculator.exe.config
+C:\Users\xin.he\source\repos\FunctionsGenerator\RandomCalculator\bin\Debug\RandomCalculator.exe
+C:\Users\xin.he\source\repos\FunctionsGenerator\RandomCalculator\bin\Debug\RandomCalculator.pdb
+C:\Users\xin.he\source\repos\FunctionsGenerator\RandomCalculator\obj\Debug\RandomCalculator.csproj.CoreCompileInputs.cache
+C:\Users\xin.he\source\repos\FunctionsGenerator\RandomCalculator\obj\Debug\RandomCalculator.exe
+C:\Users\xin.he\source\repos\FunctionsGenerator\RandomCalculator\obj\Debug\RandomCalculator.pdb
+C:\Users\xin.he\source\repos\FunctionsGenerator\Output\RandomCalculator.exe.config
+C:\Users\xin.he\source\repos\FunctionsGenerator\Output\RandomCalculator.exe
+C:\Users\xin.he\source\repos\FunctionsGenerator\Output\RandomCalculator.pdb
+C:\Users\xin.he\source\repos\FunctionsGenerator\RandomCalculator\obj\Debug\RandomCalculator.csprojResolveAssemblyReference.cache

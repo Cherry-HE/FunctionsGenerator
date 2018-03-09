@@ -1,0 +1,7 @@
+C:\Users\xin.he\source\repos\FunctionsGenerator\FunctionsGenerator\bin\Debug\FunctionsGenerator.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\FunctionsGenerator\bin\Debug\FunctionsGenerator.pdb
+C:\Users\xin.he\source\repos\FunctionsGenerator\FunctionsGenerator\obj\Debug\FunctionsGenerator.csproj.CoreCompileInputs.cache
+C:\Users\xin.he\source\repos\FunctionsGenerator\FunctionsGenerator\obj\Debug\FunctionsGenerator.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\FunctionsGenerator\obj\Debug\FunctionsGenerator.pdb
+C:\Users\xin.he\source\repos\FunctionsGenerator\Output\FunctionsGenerator.dll
+C:\Users\xin.he\source\repos\FunctionsGenerator\Output\FunctionsGenerator.pdb
