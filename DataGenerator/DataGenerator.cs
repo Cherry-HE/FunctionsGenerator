@@ -52,9 +52,6 @@ namespace DataGenerator
             //string path = Path.GetRandomFileName();
             //path = path.Replace(".", "");
             //return path;
-
-
-
         }
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RandomCalculator
@@ -61,23 +62,61 @@ namespace RandomCalculator
             //    Console.WriteLine(d);
             //}
 
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    Console.WriteLine("Do calculate :" +i);
+            //    DoCalculate(functionWrapper, dataWrapper);
+            //}
 
+            functionWrapper.GetOneArgument();
 
-
-            for (int i = 0; i < 100; i++)
-            {
-                Console.WriteLine("Do calculate :" +i);
-                DoCalculate(functionWrapper, dataWrapper);
-            }
-
+            Thread thread = new Thread(() => functionWrapper.GetFunctionWrapper());
+            thread.Start();
+            thread.Join();
+            
+            ParallelProcess(functionWrapper, dataWrapper);
         }
 
+        private static void ParallelProcess(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper)
+        {
+            var list = dataWrapper.GetListWrapper(20);
+            Parallel.ForEach<double>(list, num =>
+            {
+                Console.WriteLine($"the process for number {num} starts :");
+                var method = functionWrapper.GetOneDouble();
+                var res = method.Method.Invoke(method.Target, new object[] { num });
+                Console.WriteLine($"original number is {num}, parallel result is {res}");
+                Console.WriteLine($"the end, number {num}");
+            });
+        }
+
+        public static void DoCalculateCallback(object package)
+        {
+            object[] wrappers;
+            if (package is object[])
+            {
+                wrappers = package as object[];
+            }
+            else
+                return;
+            FunctionsGeneratorWrapper functionWrapper = (FunctionsGeneratorWrapper)wrappers[0];
+            DataGeneratorWrapper datawrapper = (DataGeneratorWrapper)wrappers[1];
+            for (int i = 0; i < 1000; i++)
+            {
+                Console.WriteLine("the first calculate");
+                DoCalculate(functionWrapper, datawrapper);
+            }
+        }
         private static void DoCalculate(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper)
         {
             Delegate function = functionWrapper.GetFunctionWrapper();
             object[] parametersArray = GetNewParameters(dataWrapper, function);
             var res = function.Method.Invoke(function.Target, parametersArray);
+            DisplayResult(function, res);
+        }
 
+        private static void DisplayResult(Delegate function, object res)
+        {
             if (function.Method.ReturnType == typeof(List<double>))
             {
                 foreach (double num in (List<double>)res)

@@ -5,3 +5,4 @@ C:\Users\xin.he\source\repos\FunctionsGenerator\DataGenerator\obj\Debug\DataGene
 C:\Users\xin.he\source\repos\FunctionsGenerator\DataGenerator\obj\Debug\DataGenerator.pdb
 C:\Users\xin.he\source\repos\FunctionsGenerator\Output\DataGenerator.dll
 C:\Users\xin.he\source\repos\FunctionsGenerator\Output\DataGenerator.pdb
+C:\Users\xin.he\source\repos\FunctionsGenerator\DataGenerator\obj\Debug\DataGenerator.csprojResolveAssemblyReference.cache

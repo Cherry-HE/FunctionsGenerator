@@ -24,7 +24,7 @@ namespace FunctionsGenerator
             _twoArguments = (x, y) => (Math.Sin(x) + Math.Cos(y)) * 50;
             _threeArguments = (x, y, z) => (Math.Sin(x) + Math.Cos(y)) * 50 + Math.Tan(z);
 
-            _oneDouble = x => Math.Sqrt(x);
+            _oneDouble = x => Math.Sqrt(Math.Abs(x));
             _doubleList = x =>
             {
                 int size = x.Count;
@@ -51,7 +51,6 @@ namespace FunctionsGenerator
             int val = rand.Next(0, fieldsInfo.Count());
             Delegate resultDelegate = (Delegate)fieldsInfo[val].GetValue(this);
             return resultDelegate;
-
         }
     }
 }
