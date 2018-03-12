@@ -68,15 +68,104 @@ namespace RandomCalculator
             //    DoCalculate(functionWrapper, dataWrapper);
             //}
 
-            functionWrapper.GetOneArgument();
+            //functionWrapper.GetOneArgument();
 
-            Thread thread = new Thread(() => functionWrapper.GetFunctionWrapper());
-            thread.Start();
-            thread.Join();
-            
-            ParallelProcess(functionWrapper, dataWrapper);
+            //Thread thread = new Thread(() => ParallelProcess(functionWrapper, dataWrapper));
+            //Thread t2 = new Thread(() => Console.WriteLine("starts starts starts"));
+            //thread.Start();
+            //t2.Start();
+
+
+            //thread.Join();
+            //Console.WriteLine("djisdhufi");
+
+            //t2.Join();
+            //Console.WriteLine("oiuiezo");
+
+            //ParallelProcess(functionWrapper, dataWrapper);
+            //ThreadPoolProcess(functionWrapper, dataWrapper);
+            //TaskProcess(functionWrapper, dataWrapper);
+
+            //TaskAwaitAsyncProcessAsync(functionWrapper, dataWrapper);
+            //Thread.Sleep(1000);
+
         }
 
+        private static async void TaskAwaitAsyncProcessAsync(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper)
+        {
+            var tenLoop = DoTenLoopAsync(functionWrapper, dataWrapper);
+            var fiftyLoop = DoFiftyLoopAsync(functionWrapper, dataWrapper);
+            await tenLoop;
+            int n2 = await fiftyLoop;
+
+        }
+        private static async Task DoTenLoopAsync(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper)
+        {
+            Console.WriteLine("start to do my ten loop");
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    DoCalculate(functionWrapper, dataWrapper);
+                }
+            });
+            Console.WriteLine("test finished for async my ten loop");
+        }
+
+        private static async Task<int> DoFiftyLoopAsync(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper)
+        {
+            Console.WriteLine("start to do my fifty loop");
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < 50; i++)
+                {
+                    DoCalculate(functionWrapper, dataWrapper);
+                }
+            });
+            Console.WriteLine("test finished for async my fifty loop");
+            return 2;
+        }
+
+        private static void TaskProcess(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper)
+        {
+            CancellationTokenSource cs = new CancellationTokenSource();
+            CancellationToken token = cs.Token;
+
+            Task t = new Task(() =>
+            {
+                token.ThrowIfCancellationRequested();
+                for (int i = 0; i < 100; i++)
+                {
+                    if (token.IsCancellationRequested)
+                        break;
+                    Thread.Sleep(1000);
+                    DoCalculate(functionWrapper, dataWrapper);
+                }
+
+            }, token);
+            t.Start();
+            //Thread.Sleep(5000);
+            cs.Cancel();
+            Console.WriteLine("operation is cancelled");
+
+            try
+            {
+                t.Wait();
+            }
+            catch (AggregateException e)
+            {
+                Console.WriteLine("Exception messages:");
+                foreach (var ie in e.InnerExceptions)
+                    Console.WriteLine("   {0}: {1}", ie.GetType().Name, ie.Message);
+                Console.WriteLine("\nTask status: {0}", t.Status);
+            }
+            finally
+            {
+                cs.Dispose();
+            }
+
+
+        }
         private static void ParallelProcess(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper)
         {
             var list = dataWrapper.GetListWrapper(20);
@@ -89,6 +178,21 @@ namespace RandomCalculator
                 Console.WriteLine($"the end, number {num}");
             });
         }
+        private static void ThreadPoolProcess(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper)
+        {
+            int numberOfThread = 60;
+            ThreadPool.SetMaxThreads(16, 16);
+            ManualResetEvent[] doneEvents = new ManualResetEvent[numberOfThread];
+            for (int i = 0; i < numberOfThread; i++)
+            {
+
+                doneEvents[i] = new ManualResetEvent(false);
+                ThreadPool.QueueUserWorkItem(DoCalculateCallback, new object[] { functionWrapper, dataWrapper, doneEvents[i], i });
+            }
+            WaitHandle.WaitAll(doneEvents);
+            Console.WriteLine("calculate has been done");
+
+        }
 
         public static void DoCalculateCallback(object package)
         {
@@ -99,20 +203,32 @@ namespace RandomCalculator
             }
             else
                 return;
+            int workerThread = 0;
+            int completionPortThread = 0;
+            ThreadPool.GetAvailableThreads(out workerThread, out completionPortThread);
+            Console.WriteLine($"{(int)wrappers[3]}th thread starts");
+            Console.WriteLine($"{(int)wrappers[3]}th starat available thread {workerThread} {completionPortThread}");
+            Console.WriteLine();
             FunctionsGeneratorWrapper functionWrapper = (FunctionsGeneratorWrapper)wrappers[0];
             DataGeneratorWrapper datawrapper = (DataGeneratorWrapper)wrappers[1];
-            for (int i = 0; i < 1000; i++)
+
+            for (int i = 0; i < 10000000; i++)
             {
-                Console.WriteLine("the first calculate");
-                DoCalculate(functionWrapper, datawrapper);
+                DoCalculate(functionWrapper, datawrapper, false);
             }
+            ThreadPool.GetAvailableThreads(out workerThread, out completionPortThread);
+            Console.WriteLine($"{(int)wrappers[3]}th end available thread {workerThread} {completionPortThread}");
+            Console.WriteLine();
+            ManualResetEvent doneEvent = (ManualResetEvent)wrappers[2];
+            doneEvent.Set();
         }
-        private static void DoCalculate(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper)
+        private static void DoCalculate(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper, bool display = true)
         {
             Delegate function = functionWrapper.GetFunctionWrapper();
             object[] parametersArray = GetNewParameters(dataWrapper, function);
             var res = function.Method.Invoke(function.Target, parametersArray);
-            DisplayResult(function, res);
+            if (display)
+                DisplayResult(function, res);
         }
 
         private static void DisplayResult(Delegate function, object res)
@@ -144,7 +260,6 @@ namespace RandomCalculator
                 {
                     Random rand = new Random();
                     parametersArray[i] = (dataWrapper.GetListWrapper(rand.Next(5, 100)));
-                    //parametersArray[i] = (dataWrapper.GetListWrapper(3));
                 }
 
             }
