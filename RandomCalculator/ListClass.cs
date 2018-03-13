@@ -9,6 +9,8 @@ namespace RandomCalculator
 {
     public class ListClass
     {
+        private static Mutex mutex = new Mutex();
+        
         private static List<double> _doubleList;
         private static Delegate _doubleListFunc;
         static readonly Object _object = new object();
@@ -20,7 +22,32 @@ namespace RandomCalculator
             _doubleListFunc = doubleListFunc;
         }
 
-        public void multiThreadList()
+        public void MutexProcess()
+        {
+            for (int i = 0; i < 10000; i++)
+            {
+                Thread t = new Thread(new ThreadStart(UseMutexMethod));
+                t.Name = $"Thread{i + 1}";
+                t.Start();
+            }
+        }
+
+
+
+        private static void UseMutexMethod()
+        {
+            Console.WriteLine($"{Thread.CurrentThread.Name} is requiring the mutex");
+            mutex.WaitOne();
+            Console.WriteLine($"{Thread.CurrentThread.Name} is in the protected area" );
+            _doubleListFunc.Method.Invoke(_doubleListFunc.Target, new object[] { _doubleList });
+            Thread.Sleep(500);
+            Console.WriteLine($"{Thread.CurrentThread.Name} is leaving the protected area");
+            mutex.ReleaseMutex();
+            Console.WriteLine($"{Thread.CurrentThread.Name} has released the mutex");
+
+
+        }
+        public void MultiThreadList()
         {
             ThreadPool.SetMaxThreads(20, 20);
             for (int i = 0; i < 1000000; i++)

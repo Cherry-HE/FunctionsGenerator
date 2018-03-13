@@ -89,10 +89,10 @@ namespace RandomCalculator
             //TaskAwaitAsyncProcessAsync(functionWrapper, dataWrapper);
             //Thread.Sleep(1000);
 
-            //ListClass listClass = new ListClass(dataWrapper.GetListWrapper(20), functionWrapper.GetDoubleList());
-            //listClass.multiThreadList();
-
-            ManualResetEventProcess(functionWrapper, dataWrapper);
+            ListClass listClass = new ListClass(dataWrapper.GetListWrapper(20), functionWrapper.GetDoubleList());
+            //listClass.MultiThreadList();
+            listClass.MutexProcess();
+            //ManualResetEventProcess(functionWrapper, dataWrapper);
 
         }
 
