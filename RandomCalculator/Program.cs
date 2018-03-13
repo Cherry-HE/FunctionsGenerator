@@ -89,6 +89,60 @@ namespace RandomCalculator
             //TaskAwaitAsyncProcessAsync(functionWrapper, dataWrapper);
             //Thread.Sleep(1000);
 
+            //ListClass listClass = new ListClass(dataWrapper.GetListWrapper(20), functionWrapper.GetDoubleList());
+            //listClass.multiThreadList();
+
+            ManualResetEventProcess(functionWrapper, dataWrapper);
+
+        }
+
+
+        private static void ManualResetEventProcess(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper)
+        {
+            ManualResetEvent event1 = new ManualResetEvent(false);
+            ManualResetEvent event2 = new ManualResetEvent(false);
+            Thread t1 = new Thread(() =>
+            {              
+                
+                for (int i = 0; i < 100; i++)
+                {
+                    event1.WaitOne();
+                    Console.WriteLine($"start first thread, iteration number {i}");
+                    Thread.Sleep(500);
+                    DoCalculate(functionWrapper, dataWrapper);
+                }
+            });
+
+            Thread t2 = new Thread(() =>
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    event2.WaitOne();
+                    Console.WriteLine($"start second thread, iteration number {i}");
+                    Thread.Sleep(500);
+                    DoCalculate(functionWrapper, dataWrapper);
+                }
+            });
+            t1.Start();
+            t2.Start();
+            Console.WriteLine("start first thread");
+            event1.Set();
+            Thread.Sleep(5000);
+            event1.Reset();
+            Console.WriteLine("start second thread");
+            event2.Set();
+            Thread.Sleep(1000);
+            event2.Reset();
+            Thread.Sleep(1000);
+            Console.WriteLine("restart first thread");
+            event1.Set();
+            Thread.Sleep(5000);
+            event1.Reset();
+            Console.WriteLine("restart second thread");
+            event2.Set();
+            Thread.Sleep(5000);
+            event2.Reset();
+
         }
 
         private static async void TaskAwaitAsyncProcessAsync(FunctionsGeneratorWrapper functionWrapper, DataGeneratorWrapper dataWrapper)
@@ -203,9 +257,7 @@ namespace RandomCalculator
             }
             else
                 return;
-            int workerThread = 0;
-            int completionPortThread = 0;
-            ThreadPool.GetAvailableThreads(out workerThread, out completionPortThread);
+            ThreadPool.GetAvailableThreads(out int workerThread, out int completionPortThread);
             Console.WriteLine($"{(int)wrappers[3]}th thread starts");
             Console.WriteLine($"{(int)wrappers[3]}th starat available thread {workerThread} {completionPortThread}");
             Console.WriteLine();
